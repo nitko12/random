@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3d</title>
+</head>
+
+<body>
+    <h2 id="tocke">0 tocki po sekundi, pomakni slider</h2>
+    <input type="range" min="0" max="30" id="range" onchange="change()">
+    <h1 id="pi">0 u sferi, 0 van nje, pi ne znamo jos</h1>
+    <script src="p5.min.js"></script>
+    <script>
+        var val, u = 0, v = 0, spheres = [];
+        document.getElementById("range").value = 0;
+        function setup() {
+            createCanvas(600, 600, WEBGL);
+        }
+        function draw() {
+            background(100);
+            camera(Math.sin(frameCount * 0.005) * 500, 0, Math.cos(frameCount * 0.005) * 500, 0, 0, 0, 0, 1, 0);
+            fill(0, 255, 0, 50);
+            sphere(150);
+            noFill();
+            box(300);
+
+            for (var i = 0; i < spheres.length; ++i) {
+                if (spheres[i][3]) {
+                    fill(255, 0, 0);
+                } else {
+                    fill(100);
+                }
+                translate(spheres[i][0], spheres[i][1], spheres[i][2]);
+                box(4);
+                translate(-spheres[i][0], -spheres[i][1], -spheres[i][2]);
+            }
+        }
+        function change() {
+            var freq = parseInt(document.getElementById("range").value);
+            document.getElementById("tocke").innerHTML = freq.toString() + " tocaka po sekundi"
+            if (val != undefined)
+                clearInterval(val);
+            if (freq != 0) {
+                val = setInterval(function () {
+                    var x = Math.random(), y = Math.random(), z = Math.random(), p = 0;
+                    if (Math.pow(x - 0.5, 2) + Math.pow(y - 0.5, 2) + Math.pow(z - 0.5, 2) <= Math.pow(0.5, 2)) {
+                        p = 1;
+                        ++u;
+                    } else {
+                        ++v;
+                    }
+                    spheres.push([Math.floor(301 * x) - 150, Math.floor(301 * y) - 150, Math.floor(301 * z) - 150, p]);
+                    document.getElementById("pi").innerHTML = u.toString() + " u krugu, " + v.toString() + " van njega, pi je " + ((u / (u + v)) / Math.pow(0.5, 3) / (4 / 3));
+                }, 1000 / freq);
+            }
+        }
+    </script>
+</body>
+
+</html>

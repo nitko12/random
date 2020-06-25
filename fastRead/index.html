@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>repl.it</title>
+  <link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td rowspan="2">
+        <canvas id="c" height="300" width="600"></canvas>
+      </td>
+      <td>
+        <p>Settings</p>
+        <input type="range" min="60" max="600" value="250" id="range">
+        <br>
+        <button onclick="startRead()">Start read</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <textarea name="Text1" cols="40" rows="5" id="input"></textarea>
+      </td>
+    </tr>
+  </table>
+
+
+  <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pixel</title>
+</head>
+
+<body>
+  <canvas id="c" height="640" width="640"></canvas>
+  <br>
+  <table style="width:100%">
+    <tr>
+      <td rowspan="2">
+        <p>Enter using sliders</p>
+        <canvas id="colc" height="10" width="100"></canvas>
+        <p>Red</p>
+        <input oninput="refreshColor()" type="range" min="0" max="255" value="255" id="r">
+        <br>
+        <p>Green</p>
+        <input oninput="refreshColor()" type="range" min="0" max="255" value="255" id="g">
+        <br>
+        <p>Blue</p>
+        <input oninput="refreshColor()" type="range" min="0" max="255" value="255" id="b">
+        <br>
+      </td>
+      <td>
+        <!-- future -->
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <!-- future -->
+      </td>
+    </tr>
+  </table>
+
+  <button onclick="httpGetAsync()">Refresh</button>
+  <script>
+    var r=255, g=255, b=255;
+    function refreshColor() {
+      
+
+      r = parseInt(document.getElementById("r").value);
+      g = parseInt(document.getElementById("g").value);
+      b = parseInt(document.getElementById("b").value);
+      var temp = document.getElementById("colc");
+      var tempctx = temp.getContext("2d");
+      tempctx.fillStyle = "rgb("+r+","+g+","+b+")";
+      tempctx.fillRect(0, 0, temp.width, temp.height);
+      
+    }
+
+    var c = document.getElementById("c");
+    var ctx = c.getContext("2d");
+    c.addEventListener('click', function (event) {
+      var rect = c.getBoundingClientRect();
+      var x = parseInt((event.clientX - rect.left) / 10);
+      var y = parseInt((event.clientY - rect.top) / 10);
+      console.log("x: " + x + " y: " + y);
+      window.location.href = window.location.href + "?paint=1&x="+ x + "&y=" + y + "&r="+ r + "&g=" + g + "&b=" + b;
+
+
+    }, false);
+
+    function httpGetAsync() {
+      var theUrl = "/image";
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.onreadystatechange = function () {
+        console.log(xmlHttp.readyState, xmlHttp.status);
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+          var imgData = ctx.createImageData(640, 640);
+          var data = imgData.data;
+          var imgd = JSON.parse(xmlHttp.responseText);
+          var pixels = [];
+
+          for (var i = 0; i < 640; i++) {
+            pixels.push([]);
+            for (var j = 0; j < 640; j++)
+              pixels[i].push([0, 0, 0]);
+          }
+
+          for (var i = 0; i < 64; i++) {
+            for (var j = 0; j < 64; j++) {
+              for (var di = 0; di < 10; di++)
+                for (var dj = 0; dj < 10; dj++)
+                  pixels[i * 10 + di][j * 10 + dj] = imgd[i][j];
+            }
+          }
+          console.log(pixels)
+          for (var i = 0; i < 640; i++) {
+            for (var j = 0; j < 640; j++) {
+              data[(i * 640 + j) * 4] = pixels[i][j][0];
+              data[(i * 640 + j) * 4 + 1] = pixels[i][j][1];
+              data[(i * 640 + j) * 4 + 2] = pixels[i][j][2];
+              data[(i * 640 + j) * 4 + 3] = 255;
+            }
+          }
+          ctx.putImageData(imgData, 0, 0);
+        }
+      }
+      xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+      xmlHttp.send(null);
+    }
+    httpGetAsync();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2d</title>
+</head>
+
+<body>
+    <h2 id="tocke">0 tocki po sekundi, pomakni slider</h2>
+    <input type="range" min="0" max="100" id="range" onchange="change()">
+    <h1 id="pi">0 u krugu, 0 van njega, pi ne znamo jos</h1>
+    <script src="p5.min.js"></script>
+    <script>
+        var val, u = 0, v = 0;
+        document.getElementById("range").value = 0;
+        function setup() {
+            createCanvas(600, 600);
+            background(200);
+            rect(50, 50, 500, 500);
+            circle(300, 300, 250);
+        }
+        function change() {
+            var freq = parseInt(document.getElementById("range").value);
+            document.getElementById("tocke").innerHTML = freq.toString() + " tocaka po sekundi"
+            if (val != undefined)
+                clearInterval(val);
+            if (freq != 0) {
+                val = setInterval(function () {
+                    var x = Math.random(), y = Math.random();
+                    if (Math.pow(x - 0.5, 2) + Math.pow(y - 0.5, 2) <= Math.pow(0.5, 2)) {
+                        stroke(255, 0, 0);
+                        fill(255, 0, 0);
+                        ++u;
+                    } else {
+                        stroke(0);
+                        fill(0);
+                        ++v;
+                    }
+                    circle(50 + Math.floor(x * 501), 50 + Math.floor(y * 501), 5);
+                    document.getElementById("pi").innerHTML = u.toString() + " u krugu, " + v.toString() + " van njega, pi je " + ((u / (u + v)) / Math.pow(0.5, 2));
+                }, 1000 / freq);
+            }
+        }
+    </script>
+</body>
+
+</html>

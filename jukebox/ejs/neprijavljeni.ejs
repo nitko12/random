@@ -1,0 +1,508 @@
+<!-- NEPRIJAVLJENI -->
+<!DOCTYPE html>
+<html xml:lang="hr" lang="hr">
+  <head>
+    <base href="#" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Jukebox</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/gif" href="/favicon.ico" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="../public/new.css"
+      type="text/css"
+      media="all"
+    />
+    <script type="text/javascript" src="../public/new.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+
+    <meta name="theme-color" content="#0099e5" />
+
+    <!-- LINK NA DRUŠTVENIM MREŽAMA -->
+    <meta property="og:image" content="/slike/logo.jpg" />
+    <meta property="og:url" content="/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Jukebox" />
+    <meta
+      property="og:description"
+      content="Prijavi se i daj svoj glas za pjesmu koja će svirati idući odmor."
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
+
+<body>
+    <div class="zaglavlje" id="#top">
+      <div class="naslov"></div>
+      <div class="korisnik"></div>
+    </div>
+
+    <div id="navbar">
+      <table style="width: 100%;">
+        <tr>
+          <td style="width: 25%; text-align: center;">
+            <div class="korisnik">
+              <a href="/public/upute.html"
+                ><i
+                  class="material-icons user"
+                  style="font-size:45px;"
+                  title="Upute za korištenje & više"
+                  >business_center</i
+                ></a
+              >
+            </div>
+          </td>
+          <td style="width: 50%; text-align: center;">
+            <a href="/"><img src="../slike/logo.jpg" width="180px;"/></a>
+          </td>
+          <td style="width: 25%; text-align: center;">
+            <div class="korisnik">
+              <i
+                class="material-icons user"
+                style="font-size:45px;"
+                title="Prijavi se"
+                id="myBtn"
+                >person</i
+              >
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <nav id="page-nav-wrap">
+      <table style="width: 100%;">
+        <tr>
+          <td style="width: 20%;">
+            <label for="hamburger"
+              ><i class="material-icons" style="font-size:37px;color:white;"
+                >menu</i
+              ></label
+            >
+          </td>
+          <td style="width: 40%;"></td>
+          <td style="width: 30%; text-align: right;">
+            <a href="/"><img src="../slike/logo.jpg" width="120px;" /></a>
+          </td>
+        </tr>
+      </table>
+
+      <input type="checkbox" id="hamburger" />
+      <div id="page-nav">
+        <a href="/loginsite">
+          Prijavi se
+        </a>
+        <hr id="nav-crta" />
+        <a href="/public/upute.html">
+          Upute za korištenje & više
+        </a>
+        <a id="social">
+          <!--Društvene mreže-->
+          <span>
+            <a
+              href="https://www.facebook.com/3gmos/"
+              class="facebook"
+              title="III. gimnazija na Facebooku"
+              target="_blank"
+              id="social_networks"
+              ><img src="../slike/fb_bijeli.png" width="35"
+            /></a>
+            <a
+              href="https://www.instagram.com/iii.gimnazija.osijek/"
+              class="instagram"
+              title="III. gimnazija na Instagramu"
+              target="_blank"
+              id="social_networks"
+              ><img src="../slike/ig_bijeli.png" width="35"
+            /></a>
+
+            <a
+              href="https://www.youtube.com/channel/UCeiBC-SpHTB4pujkuFy0ctw?sub_confirmation=1"
+              class="youtube"
+              title="III. gimnazija na YouTubeu"
+              target="_blank"
+              id="social_networks"
+              ><img src="../slike/yt_bijeli.png" width="35"
+            /></a>
+          </span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="praznina_za_mob"></div>
+
+    <script>
+      var prevScrollpos = window.pageYOffset;
+
+      window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        var checkbox = document.getElementById("hamburger");
+
+        if (prevScrollpos > currentScrollPos || currentScrollPos < 100) {
+          document.getElementById("navbar").style.top = "0";
+          document.getElementById("page-nav-wrap").style.top = "0";
+        } else {
+          document.getElementById("navbar").style.top = "-188px";
+          document.getElementById("page-nav-wrap").style.top = "-122px";
+          if (checkbox.checked == true) {
+            checkbox.checked = false;
+          }
+        }
+        prevScrollpos = currentScrollPos;
+      };
+    </script>
+
+    <div style="height: 50px; width: 100%;"></div>
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <!-- MODAL CONTENT -->
+        <form action="/login" method="post">
+          <input
+            id="login username"
+            type="text"
+            placeholder="Unesi korisničko ime"
+            name="username"
+            required
+          /><br />
+          <input
+            id="login password"
+            type="password"
+            placeholder="Unesi lozinku"
+            name="password"
+            required
+          /><br /><br />
+          <a href="/problem" class="kontakt-admin"><b><u>Zaboravljena lozinka ili korisničko ime</b></u></a><br><br>
+          <button id="btn-log in" type="submit">Prijavi se</button>
+          <button id="btn-log out" type="button" class="cancelbtn">
+            Odustani
+          </button> 
+        </form>
+        <a href="/public/upute.html"><button>Upute za korištenje</button></a>
+      </div>
+    </div>
+
+    <script>
+      var modal = document.getElementById("myModal");
+      var btn = document.getElementById("myBtn");
+      var span = document.getElementsByClassName("close")[0];
+      btn.onclick = function() {
+        modal.style.display = "block";
+      };
+      span.onclick = function() {
+        modal.style.display = "none";
+      };
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+      document.addEventListener("keyup", function(e) {
+        if (e.keyCode == 27 || e.keyCode == 13) {
+          modal.style.display = "none";
+        }
+      });
+    </script>
+    <div class="icon-bar">
+      <a
+        href="https://www.facebook.com/3gmos/"
+        class="facebook"
+        title="III. gimnazija na Facebooku"
+        target="_blank"
+        ><img src="../slike/fb_bijeli.png" width="35"
+      /></a>
+      <a
+        href="https://www.instagram.com/iii.gimnazija.osijek/"
+        class="instagram"
+        title="III. gimnazija na Instagramu"
+        target="_blank"
+        ><img src="../slike/ig_bijeli.png" width="35"
+      /></a>
+      <a
+        href="https://www.youtube.com/channel/UCeiBC-SpHTB4pujkuFy0ctw?sub_confirmation=1"
+        class="youtube"
+        title="III. gimnazija na YouTubeu"
+        target="_blank"
+        ><img src="../slike/yt_bijeli.png" width="35"
+      /></a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <span id="sadrzaj">
+      <br />
+      <div style="width: 100%;" id="poruka-admina" style="text-align: center;">
+        <h2 style="text-align: center;">TOP LISTA III. GIMNAZIJE OSIJEK</h2>
+        <br />
+        <p style="text-align: center;">
+          <span id="poruka-administratora"></span>
+        </p>
+      </div>
+      <br />
+
+      <div style="height: 50px; width: 100%;"></div>
+
+      <div style="width: 10%;" class="space"></div>
+
+      <div class="trending" style="text-align: center;">
+        <table class="trend-no1 nevidisme">
+          <tr>
+            <td class="trend-br1">
+              <span style="cursor:default;">
+                <div class="column col-xs-6" id="caption">
+                  <span class="text sakrij_na_racunalu">
+                    <h1>#1</h1>
+                  </span>
+                  <span style="cursor:default;">
+                    <a class="new_iframe_thumbnail" id="link_1" href=""
+                      ><!-- ovo -->
+                      <span class="thumbnail_naslov">
+                        <h1
+                          class="naslov_video"
+                          id="naslov_videozapisa_trend_1"
+                        >
+                          <!-- ovo -->
+                        </h1>
+                        <div class="play_button"></div>
+                      </span>
+                      <img
+                        src=""
+                        id="thumbnail_slika_1"
+                        class="thumbnail_slika"
+                      /><!-- ovo -->
+                    </a>
+                  </span>
+                </div>
+              </span>
+            </td>
+
+            <td class="trend-broj-1">
+              <p class="trend-broj">#1</p>
+            </td>
+            <td class="naziv-pjesme">
+              <h4 id="naziv-pjesme"></h4>
+            </td>
+          </tr>
+        </table>
+
+        <div style="width: 100%; height: 45px;" class="obrisi"></div>
+
+        <div class="odabir_pjesmica">
+          <div class="pjesmica" id="pjesmica1">
+            <span style="cursor:default;">
+              <div class="column col-xs-6" id="caption">
+                <span class="text">
+                  <h1>#1</h1>
+                </span>
+                <span style="cursor:default;">
+                  <a class="new_iframe_thumbnail" id="link_1_mob" href="">
+                    <span class="thumbnail_naslov">
+                      <h1 class="naslov_video" id="naslov_videozapisa_trend_1_mob"></h1>
+                      <div class="play_button"></div>
+                    </span>
+                    <img src="" id="thumbnail_slika_1_mob" class="thumbnail_slika"/>
+                  </a>
+                </span>
+              </div>
+            </span>
+          </div>
+
+          <div class="pjesmica">
+            <span style="cursor:default;">
+              <div class="column col-xs-6" id="caption">
+                <span class="text">
+                  <h1>#2</h1>
+                </span>
+                <span style="cursor:default;">
+                  <a class="new_iframe_thumbnail" id="link_2" href="">
+                    <span class="thumbnail_naslov">
+                      <h1
+                        class="naslov_video"
+                        id="naslov_videozapisa_trend_2"
+                      ></h1>
+                      <div class="play_button"></div>
+                    </span>
+                    <img
+                      src=""
+                      id="thumbnail_slika_2"
+                      class="thumbnail_slika"
+                    />
+                  </a>
+                </span>
+              </div>
+            </span>
+          </div>
+
+          <div class="pjesmica">
+            <span style="cursor:default;">
+              <div class="column col-xs-6" id="caption">
+                <span class="text">
+                  <h1>#3</h1>
+                </span>
+                <span style="cursor:default;">
+                  <a class="new_iframe_thumbnail" id="link_3" href="">
+                    <span class="thumbnail_naslov">
+                      <h1
+                        class="naslov_video"
+                        id="naslov_videozapisa_trend_3"
+                      ></h1>
+                      <div class="play_button"></div>
+                    </span>
+                    <img
+                      src=""
+                      id="thumbnail_slika_3"
+                      class="thumbnail_slika"
+                    />
+                  </a>
+                </span>
+              </div>
+            </span>
+          </div>
+
+          <div style="width: 100%; height: 1px;" class="obrisi"></div>
+
+          <div class="pjesmica">
+            <span style="cursor:default;">
+              <div class="column col-xs-6" id="caption">
+                <span class="text">
+                  <h1>#4</h1>
+                </span>
+                <span style="cursor:default;">
+                  <a class="new_iframe_thumbnail" id="link_4" href="">
+                    <span class="thumbnail_naslov">
+                      <h1
+                        class="naslov_video"
+                        id="naslov_videozapisa_trend_4"
+                      ></h1>
+                      <div class="play_button"></div>
+                    </span>
+                    <img
+                      src=""
+                      id="thumbnail_slika_4"
+                      class="thumbnail_slika"
+                    />
+                  </a>
+                </span>
+              </div>
+            </span>
+          </div>
+
+          <div class="pjesmica">
+            <span style="cursor:default;">
+              <div class="column col-xs-6" id="caption">
+                <span class="text">
+                  <h1>#5</h1>
+                </span>
+                <span style="cursor:default;">
+                  <a class="new_iframe_thumbnail" id="link_5" href="">
+                    <span class="thumbnail_naslov">
+                      <h1
+                        class="naslov_video"
+                        id="naslov_videozapisa_trend_5"
+                      ></h1>
+                      <div class="play_button"></div>
+                    </span>
+                    <img
+                      src=""
+                      id="thumbnail_slika_5"
+                      class="thumbnail_slika"
+                    />
+                  </a>
+                </span>
+              </div>
+            </span>
+          </div>
+        </div>
+
+        <div style="width: 100%; height: 25px;" class="obrisi"></div>
+        <div style="width: 100%; height: 20px;"></div>
+      </div>
+    </span>
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="vrh">
+        <a href="#top">
+          <p class="na-vrh-tekst">
+            <i class="material-icons strelica" style="float: left;"
+              >keyboard_arrow_up</i
+            >
+            Povratak na vrh
+            <i class="material-icons strelica" style="float: right;"
+              >keyboard_arrow_up</i
+            >
+          </p>
+        </a>
+      </div>
+
+      <p id="vlasnik" style="text-align: center;">
+        <br /><a href="http://www.gimnazija-treca-os.skole.hr"
+          >III. GIMNAZIJA OSIJEK</a
+        >
+      </p>
+      <br />
+      <div id="kontakt-podaci">
+        <p id="adresa"><br />Kamila Firingera 14,<br />31 000 Osijek, HR</p>
+        <p id="e-posta">
+          <a href="mailto:ured@gimnazija-treca-os.skole.hr"
+            ><br />ured@gimnazija-treca-os.skole.hr</a
+          ><br /><a href="mailto:pjesma@mail.com">pjesma@mail.com</a>
+        </p>
+      </div>
+
+      <div style="height: 150px; width: 100%;"></div>
+
+      <div class="footer-end">
+        <p id="copyright">
+          Copyright:
+          <a href="http://www.gimnazija-treca-os.skole.hr"
+            >III. gimnazija Osijek</a
+          >
+          &copy;
+          <script>
+            var d = new Date();
+            document.write(d.getFullYear() + ".");
+          </script>
+          <br />
+          Sva prava pridržana.
+        </p>
+        <p id="designer"></p>
+      </div>
+    </div>
+
+    <script
+      type="text/javascript"
+      id="cookieinfo"
+      src="https://cookieinfoscript.com/js/cookieinfo.min.js"
+      data-font-size="18px"
+      data-font-family="sans-serif"
+      data-text-align="left"
+      data-height="auto"
+      data-fg="#FFFFFF"
+      data-bg="#222222"
+      data-link=""
+      data-divlink="#FFFFFF"
+      data-divlinkbg="#0099e5"
+      data-message="Naše web stranice koriste kolačiće (eng. cookies) kako bi Vama omogućili najbolje korisničko iskustvo, za analizu prometa i korištenje društvenih mreža. Više pročitajte na"
+      data-linkmsg="ovom linku."
+      data-moreinfo="/public/cookies.html"
+      data-close-text="Prihvaćam"
+      data-cookie="prvi-kolacic"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="/public/homepage.js"></script>
+  </body>
+</html>
